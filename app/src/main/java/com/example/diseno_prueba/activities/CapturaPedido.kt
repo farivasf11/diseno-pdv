@@ -37,7 +37,6 @@ class CapturaPedido : AppCompatActivity(), OnTouchListener{
         bottomSheet= BottomSheetBehavior.from(findViewById(R.id.sheet))
         bottomSheet.apply {
             peekHeight = 170
-            isDraggable = false
         }
 
 

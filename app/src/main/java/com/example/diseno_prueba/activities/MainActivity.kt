@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatButton
 import com.example.diseno_prueba.R
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mesaUno : AppCompatButton
+    lateinit var mesaUno : LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

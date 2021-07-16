@@ -32,12 +32,22 @@
             android:layout_weight="1"
             app:cardCornerRadius="10dp"
             android:layout_marginRight="15dp">
-            <androidx.appcompat.widget.AppCompatButton
+            <LinearLayout
                 android:id="@+id/mesa_uno"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#BBEEFF"/>
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:background="#bbeeff">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="Mesa 1"/>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -57,7 +67,7 @@
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:textSize="16sp"
-                    android:text="Mesa 1"/>
+                    android:text="Mesa 2"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
