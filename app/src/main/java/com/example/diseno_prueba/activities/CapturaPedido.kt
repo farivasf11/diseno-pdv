@@ -9,56 +9,83 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 
 import com.example.diseno_prueba.R
+import com.example.diseno_pruebas.fragments.InicialCapturaPedido
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import android.view.View.OnTouchListener as OnTouchListener
 
-class CapturaPedido : AppCompatActivity(), OnTouchListener{
+class CapturaPedido : AppCompatActivity(){
     lateinit var toolbar: Toolbar
     lateinit var buscador: EditText
-    lateinit var draggableLayout: LinearLayout
+    lateinit var listaProductos: LinearLayout
+    lateinit var sheetBottom: LinearLayout
     lateinit var bottomSheet : (BottomSheetBehavior<View>)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_captura_pedido)
         toolbar = findViewById(R.id.toolbar_captura_pedido)
-        buscador = findViewById(R.id.buscador_productos)
-        draggableLayout = findViewById(R.id.draggable_zone)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = InicialCapturaPedido()
+        fragmentTransaction.add(R.id.frame_contenedor_captura_pedido, fragment)
+        fragmentTransaction.commit()
+
+        /*
+        buscador = findViewById(R.id.buscador_productos)
+        listaProductos = findViewById(R.id.lista_productos)
         buscador.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus){
                 hideKeyboard(v)
             }
         })
-        bottomSheet= BottomSheetBehavior.from(findViewById(R.id.sheet))
+        sheetBottom = findViewById(R.id.sheet)
+
+        listaProductos.setOnClickListener { View.OnClickListener {
+            Toast.makeText(this, "Holi", Toast.LENGTH_LONG)
+        } }
+        bottomSheet= BottomSheetBehavior.from(sheetBottom)
         bottomSheet.apply {
-            peekHeight = 170
+            state = STATE_EXPANDED
+            isGestureInsetBottomIgnored = true
         }
 
-
+        bottomSheet.addBottomSheetCallback(object : BottomSheetCallback(){
+            override fun onStateChanged(v: View, newState: Int) {
+                Log.i("DragListener", v.toString())
+                if (newState == STATE_EXPANDED){
+                    Log.i("DragListener", "" + newState)
+                    bottomSheet.apply { isDraggable = false }
+                }
+            }
+            override fun onSlide(v: View, slideOffset: Float) {
+                Log.i("DragListener", v.toString())
+            }
+        })
+        */
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 
-    fun hideKeyboard (v: View){
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+    override fun onBackPressed() {
+        val fragment = this.supportFragmentManager.findFragmentById(R.id.frame_contenedor_captura_pedido)
+        (fragment as? IFragmentsOnBackPressed)?.onBackPressed()?.not()?.let {
+            super.onBackPressed()
+        }
     }
 
-    override fun onTouch(v: View, event: MotionEvent?): Boolean {
-        Log.i("entro","que pedo")
-        Log.i("view",v.toString())
-        if (v != null) if (v.equals(findViewById(R.id.draggable_zone))){
-            bottomSheet.apply { isDraggable = true }
-        } else {
-            bottomSheet.apply { isDraggable = false }
-        }
-        return true
+    interface IFragmentsOnBackPressed{
+        fun onBackPressed(): Boolean
     }
 }
+

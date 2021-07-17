@@ -15,4 +15,10 @@
         <item name="android:insetRight">0dp</item>
         <item name="android:insetLeft">0dp</item>
     </style>
+
+    <style name="TitleActivitiesStyle" parent="">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/text_principal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

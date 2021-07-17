@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:background="@color/white"
+    tools:context="com.example.diseno_pruebas.fragments.BuscadorProductos">
+    <EditText
+        android:id="@+id/buscador_productos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/search"
+        android:drawablePadding="10dp"
+        android:hint="Buscar"
+        android:fontFamily="@font/montserrat_medium"
+        android:background="@drawable/search_input"
+        android:maxLines="1"
+        android:maxLength="50"
+        android:padding="5dp"
+        android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
+</LinearLayout>
