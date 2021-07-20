@@ -33,7 +33,7 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
 
     override fun onBackPressed(): Boolean {
         Toast.makeText(activity, "Back", Toast.LENGTH_LONG)
-        return false
+        return true
     }
 
 }
