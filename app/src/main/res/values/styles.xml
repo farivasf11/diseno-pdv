@@ -4,9 +4,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-    <style name="CustomMaterialButtonOutlined" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
-        <item name="backgroundTint"> @color/button_states</item>
-        <item name="iconTint">@color/button_states</item>
+
+    <style name="MaterialButtonIcon" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="backgroundTint">@color/material_button_icon_colors</item>
+        <item name="iconTint">@color/material_button_icon_colors</item>
         <item name="android:padding">0dp</item>
         <item name="android:minHeight">30dp</item>
         <item name="android:elevation">1dp</item>
@@ -14,6 +15,31 @@
         <item name="android:insetBottom">0dp</item>
         <item name="android:insetRight">0dp</item>
         <item name="android:insetLeft">0dp</item>
+    </style>
+
+    <style name="MaterialButtonCategorias" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="backgroundTint">@color/material_button_background_color</item>
+        <item name="iconTint">@color/material_button_background_color</item>
+        <item name="android:textColor">@color/material_button_text_color</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+    </style>
+
+    <style name="MaterialButtonPrincipal" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="backgroundTint">@color/material_button_background_color</item>
+        <item name="iconTint">@color/material_button_background_color</item>
+        <item name="android:textColor">@color/blue_main</item>
+        <item name="strokeColor">@color/blue_main</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="TitleActivitiesStyle" parent="">

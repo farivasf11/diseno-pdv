@@ -29,7 +29,7 @@
             android:fontFamily="@font/montserrat_regular"
             android:layout_marginRight="5dp"/>
         <com.google.android.material.button.MaterialButton
-            style="@style/CustomMaterialButtonOutlined"
+            style="@style/MaterialButtonIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:cornerRadius="6dp"
@@ -51,7 +51,7 @@
             android:layout_marginHorizontal="5dp"/>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/CustomMaterialButtonOutlined"
+            style="@style/MaterialButtonIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:insetLeft="0dp"
@@ -78,174 +78,6 @@
             app:track="@drawable/switch_track"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:focusableInTouchMode="true" >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                app:cornerRadius="30dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:insetLeft="0dp"
-                android:insetRight="0dp"
-                app:iconGravity="textStart"
-                android:padding="0dp"
-                app:iconPadding="0dp"
-                app:iconTint="@null"
-                android:foregroundTint="@color/black"
-                android:visibility="invisible"
-                app:strokeColor="@color/white"
-                app:icon="@drawable/indicator_back"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/text_principal"
-                android:textSize="16sp"
-                android:layout_marginHorizontal="60dp"
-                android:text="Comensal 1"/>
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                app:cornerRadius="30dp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:insetLeft="0dp"
-                android:insetRight="0dp"
-                app:iconGravity="textStart"
-                android:padding="0dp"
-                app:iconPadding="0dp"
-                app:iconTint="@null"
-                app:strokeColor="@color/white"
-                android:visibility="invisible"
-                app:icon="@drawable/indicator_next"/>
-        </LinearLayout>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="5dp"
-            android:layout_margin="5dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F9F9F9">
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/sheet"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            app:behavior_peekHeight="58dp">
-
-            <LinearLayout
-                android:id="@+id/draggable_zone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/borde_inputs"/>
-                <View
-                    android:layout_width="35dp"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/text_principal"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:layout_marginTop="10dp"
-                    android:text="Agregar Productos"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lista_productos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:layout_margin="15dp">
-                <EditText
-                    android:id="@+id/buscador_productos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/search"
-                    android:drawablePadding="10dp"
-                    android:hint="Buscar"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:background="@drawable/search_input"
-                    android:maxLines="1"
-                    android:maxLength="50"
-                    android:padding="5dp"
-                    android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:clickable="true"
-                    android:layoutDirection="rtl"
-                    android:focusableInTouchMode="true" >
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/CustomMaterialButtonOutlined"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:cornerRadius="6dp"
-                        app:iconGravity="textStart"
-                        app:iconPadding="0dp"
-                        app:iconTint="@null"
-                        app:icon="@drawable/plus_icon"
-                        android:layout_marginLeft="10dp"
-                        android:enabled="true"/>
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/CustomMaterialButtonOutlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        app:cornerRadius="6dp"
-                        android:text="Agregar comentario"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:textColor="@color/borde_inputs"
-                        android:textAllCaps="false"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+    <include layout="@layout/detalle_pedido_comensal"/>
+    <include layout="@layout/agregar_productos"/>
 </LinearLayout>

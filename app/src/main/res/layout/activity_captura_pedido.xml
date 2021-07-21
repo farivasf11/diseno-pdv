@@ -26,7 +26,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_captura_pedido"
         android:layout_above="@id/button_bottom">
-
     </FrameLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_bottom"
@@ -36,9 +35,8 @@
         android:text="Revisar pedido"
         android:fontFamily="@font/montserrat_bold"
         android:textSize="20sp"
-        android:paddingVertical="10dp"
         android:backgroundTint="@color/blue_main"
         android:textAllCaps="false"
-        android:layout_margin="15dp"/>
+        android:layout_margin="10dp"/>
 </RelativeLayout>
 
