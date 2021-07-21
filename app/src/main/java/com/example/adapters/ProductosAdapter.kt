@@ -12,13 +12,13 @@ class ProductosAdapter (private val dataset: Array<Producto>) : RecyclerView.Ada
     var seleccionAnterior = -1
     var seleccionActual = -1
 
-    class Producto(nombre: String, precio: String){
+    class Producto(nombre: String, precio: Float){
         var nombre: String = nombre
             get() {
                 return field
             }
             set(value) {}
-        var precio: String = precio
+        var precio: Float = precio
             get() {
                 return field
             }
@@ -30,12 +30,9 @@ class ProductosAdapter (private val dataset: Array<Producto>) : RecyclerView.Ada
         val precio : TextView
         val layout : LinearLayout
         init {
-
             nombre = view.findViewById(R.id.nombre_producto_item)
             precio = view.findViewById(R.id.precio_producto_item)
             layout = view.findViewById(R.id.layout_producto)
-            layout.setOnClickListener {
-            }
         }
     }
 
@@ -57,7 +54,7 @@ class ProductosAdapter (private val dataset: Array<Producto>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.nombre.text = dataset[position].nombre
-        holder.precio.text = dataset[position].precio
+        holder.precio.text = "$"+dataset[position].precio.toString()
         holder.layout.isSelected = seleccionActual == position
     }
 

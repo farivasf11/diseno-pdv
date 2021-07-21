@@ -25,6 +25,7 @@ class CategoriasAdapter(private val dataset: Array<String>) : RecyclerView.Adapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriasAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_boton_categorias, parent, false)
         val holder = ViewHolder(view)
+
         holder.itemView.setOnClickListener {
             seleccionActual = holder.adapterPosition
             if (seleccionAnterior == -1){

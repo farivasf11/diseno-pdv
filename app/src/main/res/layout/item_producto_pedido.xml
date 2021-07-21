@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/layout_producto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:weightSum="1"
+    android:background="@drawable/producto_state_selector"
+    android:clickable="true"
+    android:paddingVertical="3dp">
+    <TextView
+        android:id="@+id/cantidad_producto_pedido"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="16sp"
+        android:textColor="@color/text_principal"
+        android:text="1"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/nombre_producto_pedido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="16sp"
+        android:textColor="@color/text_principal"
+        android:text="Torta Cubana"/>
+    <TextView
+        android:id="@+id/precio_producto_pedido"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_regular"
+        android:textSize="16sp"
+        android:gravity="end"
+        android:paddingRight="10dp"
+        android:textColor="@color/text_principal"
+        android:text="$55"/>
+</LinearLayout>
