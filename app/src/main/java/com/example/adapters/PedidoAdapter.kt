@@ -46,8 +46,6 @@ class PedidoAdapter (private val dataset: ArrayList<ProductoPedido>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("Cantidad", dataset.get(position).cantidad.toString())
-        Log.i("Nombre", dataset.get(position).nombre)
         holder.cantidad.text = dataset.get(position).cantidad.toString()
         holder.nombre.text = dataset.get(position).nombre
         holder.precio.text = "$"+dataset.get(position).precio.toString()

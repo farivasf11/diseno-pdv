@@ -37,6 +37,11 @@
         android:textSize="20sp"
         android:backgroundTint="@color/blue_main"
         android:textAllCaps="false"
-        android:layout_margin="10dp"/>
+        android:stateListAnimator="@null"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:layout_margin="15dp"/>
 </RelativeLayout>
 

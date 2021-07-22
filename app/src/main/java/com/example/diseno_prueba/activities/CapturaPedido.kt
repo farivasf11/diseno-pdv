@@ -23,9 +23,8 @@ class CapturaPedido : AppCompatActivity(){
 
         fragmentTransaction.add(R.id.frame_contenedor_captura_pedido, fragment)
         fragmentTransaction.commit()
-
-
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

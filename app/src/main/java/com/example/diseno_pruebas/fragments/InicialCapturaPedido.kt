@@ -1,6 +1,10 @@
 package com.example.diseno_pruebas.fragments
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -83,11 +87,14 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
                 numeroComensales.text = comensales.toString()
             }
         }
+
         aumentarComensal.setOnClickListener {
             comensales ++
             numeroComensales.text = comensales.toString()
         }
+
         agregarProducto.setOnClickListener {
+            vibratePhone()
             val adapter = recyclerProductos.adapter as ProductosAdapter
             val seleccionProducto = adapter?.seleccionActual
             if (seleccionProducto != -1){
@@ -104,16 +111,26 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
                 }
             }
         }
-        agregarComentario.setOnClickListener {
 
+        agregarComentario.setOnClickListener {
+            vibratePhone()
+
+        }
+    }
+
+    fun Fragment.vibratePhone() {
+        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(100)
         }
     }
 
     private fun loadBuscador() {
         buscador.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus){
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos())?.commit()
+                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos())?.commit()
             }
         })
     }

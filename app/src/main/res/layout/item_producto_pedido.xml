@@ -9,6 +9,7 @@
     android:weightSum="1"
     android:background="@drawable/producto_state_selector"
     android:clickable="true"
+    android:backgroundTint="#F9F9F9"
     android:paddingVertical="3dp">
     <TextView
         android:id="@+id/cantidad_producto_pedido"

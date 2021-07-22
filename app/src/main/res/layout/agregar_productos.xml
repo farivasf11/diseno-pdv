@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout_agregar_productos"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:showIn="@layout/inicial_captura_pedido">
+    android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/sheet"
         android:layout_width="match_parent"
@@ -51,25 +50,36 @@
             android:focusableInTouchMode="true"
             android:weightSum="1"
             android:layout_marginHorizontal="15dp">
-            <EditText
-                android:id="@+id/buscador_productos"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/search"
-                android:drawablePadding="10dp"
-                android:hint="Buscar"
-                android:fontFamily="@font/montserrat_medium"
-                android:background="@drawable/search_input"
-                android:maxLines="1"
-                android:maxLength="50"
-                android:padding="5dp"
-                android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_categorias"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"
-                android:layout_marginTop="10dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="1">
+                <EditText
+                    android:id="@+id/buscador_productos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/search"
+                    android:drawablePadding="10dp"
+                    android:hint="Buscar"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:background="@drawable/search_input"
+                    android:maxLines="1"
+                    android:maxLength="50"
+                    android:paddingVertical="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:longClickable="false"
+                    android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_categorias"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:overScrollMode="never"/>
+            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_listado_productos"
                 android:layout_width="match_parent"
