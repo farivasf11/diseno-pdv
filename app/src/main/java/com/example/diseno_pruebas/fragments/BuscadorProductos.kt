@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.example.diseno_prueba.R
 import com.example.diseno_prueba.activities.CapturaPedido
 
-class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
+class BuscadorProductos : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,11 +29,6 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
 
                 }
             }
-    }
-
-    override fun onBackPressed(): Boolean {
-        Toast.makeText(activity, "Back", Toast.LENGTH_LONG)
-        return true
     }
 
 }

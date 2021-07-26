@@ -7,6 +7,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -22,14 +23,12 @@ import com.example.adapters.PedidoAdapter
 import com.example.adapters.ProductosAdapter
 import com.example.diseno_prueba.R
 import com.example.diseno_prueba.activities.CapturaPedido
-import com.example.models.ElementoPedido
 import com.example.models.PedidoComensal
 import com.example.models.Producto
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.button.MaterialButton
-import kotlin.collections.ArrayList
 
-class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
+class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnTouchListener {
     lateinit var buscador : EditText
     lateinit var listaProductos: LinearLayout
     lateinit var layoutSheet: LinearLayout
@@ -38,6 +37,9 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
     lateinit var recyclerCategorias : RecyclerView
     lateinit var recyclerProductos : RecyclerView
     lateinit var recyclerPedido : RecyclerView
+    lateinit var draggableZone : LinearLayout
+    lateinit var layoutPedido : LinearLayout
+
     lateinit var disminuirComensal : MaterialButton
     lateinit var aumentarComensal : MaterialButton
     lateinit var numeroComensales : TextView
@@ -78,6 +80,8 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
         recyclerPedido = view.findViewById(R.id.recycler_pedido)
         listaProductos = view.findViewById(R.id.lista_productos)
         coordinatorLayout = view.findViewById(R.id.coordinator_layout_agregar_productos)
+        draggableZone = view.findViewById(R.id.draggable_zone)
+        layoutPedido = view.findViewById(R.id.layout_pedido_comensal)
 
         disminuirComensal = view.findViewById(R.id.disminuirComensal)
         aumentarComensal = view.findViewById(R.id.aumentarComensal)
@@ -126,6 +130,11 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
             recyclerProductos.adapter?.notifyDataSetChanged()
             recyclerPedido.adapter?.notifyDataSetChanged()
         }
+
+        draggableZone.setOnTouchListener(this)
+        layoutPedido.setOnTouchListener(this)
+        recyclerPedido.setOnTouchListener(this)
+
     }
 
     fun Fragment.vibratePhone() {
@@ -152,7 +161,6 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
         isGestureInsetBottomIgnored = false
         isDraggable = false
         }
-
     }
 
     private fun loadRecyclerPedidoComensal(){
@@ -197,6 +205,19 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
 
     override fun onBackPressed(): Boolean {
         return true
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        if (v == draggableZone){
+            bottomSheet?.state = BottomSheetBehavior.STATE_EXPANDED
+            return true
+        }
+        if (v == layoutPedido || v == recyclerPedido){
+            bottomSheet?.state = BottomSheetBehavior.STATE_COLLAPSED
+            return true
+        }
+
+        return false
     }
 
 }
