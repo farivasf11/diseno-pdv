@@ -7,24 +7,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
+import com.example.models.Producto
 
 class ProductosAdapter (private val dataset: Array<Producto>) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>(){
     var seleccionAnterior = -1
     var seleccionActual = -1
 
-    class Producto(nombre: String, precio: Float){
-        var nombre: String = nombre
-            get() {
-                return field
-            }
-            set(value) {}
-        var precio: Float = precio
-            get() {
-                return field
-            }
-            set(value) {}
-
-    }
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val nombre : TextView
         val precio : TextView

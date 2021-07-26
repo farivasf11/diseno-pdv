@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +22,9 @@ import com.example.adapters.PedidoAdapter
 import com.example.adapters.ProductosAdapter
 import com.example.diseno_prueba.R
 import com.example.diseno_prueba.activities.CapturaPedido
+import com.example.models.ElementoPedido
+import com.example.models.PedidoComensal
+import com.example.models.Producto
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.button.MaterialButton
 import kotlin.collections.ArrayList
@@ -40,9 +43,12 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
     lateinit var numeroComensales : TextView
     lateinit var agregarProducto : MaterialButton
     lateinit var agregarComentario : MaterialButton
-    lateinit var productos : Array<ProductosAdapter.Producto>
-    lateinit var productosPedido : ArrayList<PedidoAdapter.ProductoPedido>
+    lateinit var switchIncluirImpuestos : SwitchCompat
+
+    lateinit var productos : Array<Producto>
+    var comensal = PedidoComensal("")
     var comensales = 1
+    var incluirImpuestos = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +84,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
         numeroComensales = view.findViewById(R.id.numeroComensales)
         agregarProducto = view.findViewById(R.id.boton_agregar_producto)
         agregarComentario = view.findViewById(R.id.boton_comentario_producto)
+        switchIncluirImpuestos = view.findViewById(R.id.switch_incluir_impuestos)
     }
 
     private fun setOnClickListeners(){
@@ -98,23 +105,26 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
             val adapter = recyclerProductos.adapter as ProductosAdapter
             val seleccionProducto = adapter?.seleccionActual
             if (seleccionProducto != -1){
-
-                val indexProductoPedido = productosPedido.indexOfFirst { it.nombre == productos[seleccionProducto].nombre}
-                if (indexProductoPedido == -1){
-                    productosPedido.add(PedidoAdapter.ProductoPedido(1, productos[seleccionProducto].nombre, productos[seleccionProducto].precio))
-                    recyclerPedido.adapter?.notifyItemInserted(productosPedido.size)
-                } else {
-                    val nuevaCantidad = productosPedido.get(indexProductoPedido).cantidad + 1
-                    val nuevoImporte = productos[seleccionProducto].precio * nuevaCantidad
-                    productosPedido.set(indexProductoPedido,PedidoAdapter.ProductoPedido(nuevaCantidad, productos[seleccionProducto].nombre, nuevoImporte))
-                    recyclerPedido.adapter?.notifyItemChanged(indexProductoPedido)
+                val productoAgregar = productos[seleccionProducto]
+                val indexProductoPedido = comensal.productos.indexOfFirst { it.producto.nombre == productoAgregar.nombre}
+                when(comensal.agregarProducto(indexProductoPedido, productoAgregar)){
+                    1 -> recyclerPedido.adapter?.notifyItemInserted(comensal.productos.size)
+                    2 -> recyclerPedido.adapter?.notifyItemChanged(indexProductoPedido)
                 }
             }
         }
-
         agregarComentario.setOnClickListener {
             vibratePhone()
+        }
 
+        switchIncluirImpuestos.setOnCheckedChangeListener { buttonView, isChecked ->
+            vibratePhone()
+            incluirImpuestos = isChecked
+            productos.forEach {
+                it.incluirImpuestos = incluirImpuestos
+            }
+            recyclerProductos.adapter?.notifyDataSetChanged()
+            recyclerPedido.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -136,19 +146,18 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
     }
 
     private fun loadBottomSheet(){
-        bottomSheet= BottomSheetBehavior.from(layoutSheet)
-        bottomSheet.apply {
-            state = BottomSheetBehavior.STATE_EXPANDED
-            isGestureInsetBottomIgnored = false
-            isDraggable = false
+    bottomSheet= BottomSheetBehavior.from(layoutSheet)
+    bottomSheet.apply {
+        state = BottomSheetBehavior.STATE_EXPANDED
+        isGestureInsetBottomIgnored = false
+        isDraggable = false
         }
 
     }
 
     private fun loadRecyclerPedidoComensal(){
         recyclerPedido.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        productosPedido = arrayListOf()
-        val adapterPedido = PedidoAdapter(productosPedido)
+        val adapterPedido = PedidoAdapter(comensal.productos)
         recyclerPedido.adapter = adapterPedido
     }
 
@@ -165,13 +174,13 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
     private fun loadRecyclerProductos(){
         recyclerProductos.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         productos = arrayOf(
-            ProductosAdapter.Producto("Papa", 50F),
-            ProductosAdapter.Producto("Hamburguesa",60.5F),
-            ProductosAdapter.Producto("Torta de Pierna",40F),
-            ProductosAdapter.Producto("Enchiladas",45F),
-            ProductosAdapter.Producto("Torta Cubana",33F),
-            ProductosAdapter.Producto("Limonada Grande",60F),
-            ProductosAdapter.Producto("Pizza Mediana",80F))
+            Producto("Papa", 50F),
+            Producto("Hamburguesa",60.5F),
+            Producto("Torta de Pierna",40F),
+            Producto("Enchiladas",45F),
+            Producto("Torta Cubana",33F),
+            Producto("Limonada Grande",60F),
+            Producto("Pizza Mediana",80F))
         val adapterProductos = ProductosAdapter(productos)
 
         (recyclerProductos.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

@@ -25,10 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_captura_pedido"
-        android:layout_above="@id/button_bottom">
+        android:layout_above="@id/boton_realizar_pedido">
     </FrameLayout>
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_bottom"
+        android:id="@+id/boton_realizar_pedido"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

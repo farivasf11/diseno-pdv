@@ -6,9 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.example.diseno_prueba.R
 import com.example.diseno_pruebas.fragments.InicialCapturaPedido
+import com.google.android.material.button.MaterialButton
 
 class CapturaPedido : AppCompatActivity(){
     lateinit var toolbar: Toolbar
+    lateinit var botonRealizarPedido: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +18,7 @@ class CapturaPedido : AppCompatActivity(){
         toolbar = findViewById(R.id.toolbar_captura_pedido)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        botonRealizarPedido = findViewById(R.id.boton_realizar_pedido)
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

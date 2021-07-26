@@ -1,32 +1,14 @@
 package com.example.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
+import com.example.models.ElementoPedido
 
-class PedidoAdapter (private val dataset: ArrayList<ProductoPedido>) : RecyclerView.Adapter<PedidoAdapter.ViewHolder>(){
-
-    class ProductoPedido(cantidad: Int, nombre: String, precio: Float){
-        var cantidad : Int = cantidad
-            get() {
-                return field
-            }
-            set(value) {}
-        var nombre : String = nombre
-            get() {
-                return field
-            }
-            set(value) {}
-        var precio : Float = precio
-            get() {
-                return field
-            }
-            set(value) {}
-    }
+class PedidoAdapter (private val dataset: ArrayList<ElementoPedido>) : RecyclerView.Adapter<PedidoAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val cantidad : TextView
@@ -47,8 +29,8 @@ class PedidoAdapter (private val dataset: ArrayList<ProductoPedido>) : RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.cantidad.text = dataset.get(position).cantidad.toString()
-        holder.nombre.text = dataset.get(position).nombre
-        holder.precio.text = "$"+dataset.get(position).precio.toString()
+        holder.nombre.text = dataset.get(position).producto.nombre
+        holder.precio.text = "$"+dataset.get(position).importe.toString()
     }
 
     override fun getItemCount(): Int {
