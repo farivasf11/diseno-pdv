@@ -13,4 +13,7 @@
     <color name="text_principal">#7A7A7A</color>
     <color name="borde_inputs">#BBBBBB</color>
     <color name="gris_fuerte">#696969</color>
+    <color name="gris_claro">#F9F9F9</color>
+    <color name="gris_separador">#ADADAD</color>
+    <color name="rojo_main">#DD4141</color>
 </resources>

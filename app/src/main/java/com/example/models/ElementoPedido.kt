@@ -7,4 +7,5 @@ class ElementoPedido(producto: Producto) {
 
     val importe get() =  this.cantidad * producto.precio
 
+    var expandido :  Boolean = false
 }

@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -26,9 +27,10 @@ import com.example.diseno_prueba.activities.CapturaPedido
 import com.example.models.PedidoComensal
 import com.example.models.Producto
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.button.MaterialButton
 
-class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnTouchListener {
+class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnClickListener {
     lateinit var buscador : EditText
     lateinit var listaProductos: LinearLayout
     lateinit var layoutSheet: LinearLayout
@@ -131,9 +133,9 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
             recyclerPedido.adapter?.notifyDataSetChanged()
         }
 
-        draggableZone.setOnTouchListener(this)
-        layoutPedido.setOnTouchListener(this)
-        recyclerPedido.setOnTouchListener(this)
+        draggableZone.setOnClickListener(this)
+        layoutPedido.setOnClickListener(this)
+        recyclerPedido.setOnClickListener(this)
 
     }
 
@@ -155,17 +157,31 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     }
 
     private fun loadBottomSheet(){
-    bottomSheet= BottomSheetBehavior.from(layoutSheet)
-    bottomSheet.apply {
-        state = BottomSheetBehavior.STATE_EXPANDED
-        isGestureInsetBottomIgnored = false
-        isDraggable = false
+        bottomSheet= BottomSheetBehavior.from(layoutSheet)
+        bottomSheet.apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            isGestureInsetBottomIgnored = false
+            isDraggable = false
+            addBottomSheetCallback(object: BottomSheetCallback(){
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_COLLAPSED){
+
+                    }
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED){
+
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                }
+
+            })
         }
     }
 
     private fun loadRecyclerPedidoComensal(){
         recyclerPedido.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        val adapterPedido = PedidoAdapter(comensal.productos)
+        val adapterPedido = PedidoAdapter(comensal.productos, false)
         recyclerPedido.adapter = adapterPedido
     }
 
@@ -188,7 +204,11 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
             Producto("Enchiladas",45F),
             Producto("Torta Cubana",33F),
             Producto("Limonada Grande",60F),
-            Producto("Pizza Mediana",80F))
+            Producto("Pizza Mediana",80F),
+            Producto("Tacos de Adobada",43F),
+            Producto("Tampiqueña",82F),
+            Producto("Coca Cola",10F),
+            Producto("Hot Dog",50F))
         val adapterProductos = ProductosAdapter(productos)
 
         (recyclerProductos.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -207,17 +227,27 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         return true
     }
 
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+    override fun onClick(v: View?) {
+        Log.i("View", v.toString())
         if (v == draggableZone){
-            bottomSheet?.state = BottomSheetBehavior.STATE_EXPANDED
-            return true
+            val adapterPedido = PedidoAdapter(comensal.productos, false)
+            recyclerPedido.adapter = adapterPedido
+
+            val params : ViewGroup.LayoutParams = layoutPedido.layoutParams
+            params.height = ((200  * (getResources().getDisplayMetrics().density)).toInt());
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutPedido.layoutParams = params
+
+            bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
         }
         if (v == layoutPedido || v == recyclerPedido){
-            bottomSheet?.state = BottomSheetBehavior.STATE_COLLAPSED
-            return true
-        }
+            val adapterPedido = PedidoAdapter(comensal.productos, true)
+            recyclerPedido.adapter = adapterPedido
 
-        return false
+            layoutPedido.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
 }

@@ -7,9 +7,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:weightSum="1"
-    android:background="@drawable/producto_state_selector"
-    android:clickable="true"
-    android:backgroundTint="#F9F9F9"
+    android:background="@drawable/item_pedido_state_selector"
     android:paddingVertical="3dp">
     <TextView
         android:id="@+id/cantidad_producto_pedido"
@@ -39,4 +37,16 @@
         android:paddingRight="10dp"
         android:textColor="@color/text_principal"
         android:text="$55"/>
+    <View
+        android:id="@+id/separador_producto"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        android:background="@color/borde_inputs"></View>
+    <LinearLayout
+        android:id="@+id/opciones_adicionales"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"></LinearLayout>
 </LinearLayout>
