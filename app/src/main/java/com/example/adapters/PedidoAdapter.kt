@@ -42,8 +42,8 @@ class PedidoAdapter (private val dataset: ArrayList<ElementoPedido>, private val
         } else {
             view = LayoutInflater.from(parent.context).inflate(R.layout.item_producto_pedido_expanded, parent, false)
         }
-        val holder = ViewHolder(view)
 
+        val holder = ViewHolder(view)
         if (viewType == 2){
             holder.itemView.setOnClickListener {
                 seleccionActual = holder.adapterPosition

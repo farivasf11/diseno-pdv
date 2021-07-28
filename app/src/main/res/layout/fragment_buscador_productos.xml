@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:padding="15dp"
     android:background="@color/white"
+    android:clickable="true"
     tools:context="com.example.diseno_pruebas.fragments.BuscadorProductos">
     <EditText
         android:id="@+id/buscador_productos"
@@ -14,8 +15,10 @@
         android:hint="Buscar"
         android:fontFamily="@font/montserrat_medium"
         android:background="@drawable/search_input"
-        android:maxLines="1"
-        android:maxLength="50"
+        android:maxLength="30"
         android:padding="5dp"
+        android:singleLine="true"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
 </LinearLayout>

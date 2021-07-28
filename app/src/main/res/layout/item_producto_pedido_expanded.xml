@@ -72,6 +72,6 @@
         android:id="@+id/separador_producto"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@color/gris_separador"></View>
 </LinearLayout>

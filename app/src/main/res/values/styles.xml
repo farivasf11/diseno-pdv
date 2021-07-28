@@ -5,6 +5,13 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="elevation">10dp</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/text_principal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="MaterialButtonIcon" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
         <item name="backgroundTint">@color/material_button_icon_colors</item>
         <item name="iconTint">@color/material_button_icon_colors</item>

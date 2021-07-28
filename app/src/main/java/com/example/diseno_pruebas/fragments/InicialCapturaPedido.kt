@@ -16,6 +16,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -151,7 +153,8 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     private fun loadBuscador() {
         buscador.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus){
-                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos())?.commit()
+                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos())?.setReorderingAllowed(false)?.addToBackStack("BUSCADOR_PRODUCTOS")?.commit()
+                buscador.clearFocus()
             }
         })
     }
@@ -171,7 +174,6 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
 
                     }
                 }
-
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 }
 
@@ -223,10 +225,6 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
             }
     }
 
-    override fun onBackPressed(): Boolean {
-        return true
-    }
-
     override fun onClick(v: View?) {
         Log.i("View", v.toString())
         if (v == draggableZone){
@@ -248,6 +246,18 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
 
             bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
+    }
+
+    class BuscadorProductosViewModel : ViewModel(){
+        val palabraCapturada = MutableLiveData<String>()
+
+        fun capturarPalabra(item: String){
+            palabraCapturada.value = item
+        }
+    }
+
+    override fun onBackPressed(): Boolean {
+        return true
     }
 
 }
