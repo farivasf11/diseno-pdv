@@ -61,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/search"
+                    android:drawableEnd="@drawable/clear_icon"
                     android:drawablePadding="10dp"
                     android:hint="Buscar"
                     android:fontFamily="@font/montserrat_medium"
