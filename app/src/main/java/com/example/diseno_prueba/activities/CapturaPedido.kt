@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.diseno_prueba.R
 import com.example.diseno_pruebas.fragments.InicialCapturaPedido
 import com.google.android.material.button.MaterialButton
@@ -44,6 +46,13 @@ class CapturaPedido : AppCompatActivity(){
         }
     }
 
+    class BuscadorProductosViewModel : ViewModel(){
+        val palabraCapturada = MutableLiveData<String>()
+
+        fun capturarPalabra(item: String){
+            palabraCapturada.value = item
+        }
+    }
     interface IFragmentsOnBackPressed{
         fun onBackPressed(): Boolean
     }

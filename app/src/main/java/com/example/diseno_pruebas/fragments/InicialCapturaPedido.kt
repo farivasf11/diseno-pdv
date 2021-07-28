@@ -16,7 +16,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +35,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.google.android.material.button.MaterialButton
 
 class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnClickListener {
+    val model: CapturaPedido.BuscadorProductosViewModel by activityViewModels<CapturaPedido.BuscadorProductosViewModel>()
+
     lateinit var buscador : EditText
     lateinit var listaProductos: LinearLayout
     lateinit var layoutSheet: LinearLayout
@@ -74,6 +78,9 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         loadRecyclerProductos()
         loadRecyclerPedidoComensal()
         setOnClickListeners()
+        model.palabraCapturada.observe(viewLifecycleOwner, Observer<String>{
+            buscador.setText(it)
+        })
     }
 
     private fun findViews(view: View){
@@ -153,7 +160,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     private fun loadBuscador() {
         buscador.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus){
-                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos())?.setReorderingAllowed(false)?.addToBackStack("BUSCADOR_PRODUCTOS")?.commit()
+                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos.newInstance(buscador.text.toString()))?.setReorderingAllowed(false)?.addToBackStack("BUSCADOR_PRODUCTOS")?.commit()
                 buscador.clearFocus()
             }
         })
@@ -248,13 +255,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         }
     }
 
-    class BuscadorProductosViewModel : ViewModel(){
-        val palabraCapturada = MutableLiveData<String>()
 
-        fun capturarPalabra(item: String){
-            palabraCapturada.value = item
-        }
-    }
 
     override fun onBackPressed(): Boolean {
         return true
