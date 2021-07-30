@@ -5,8 +5,9 @@
     style="@style/MaterialButtonCategorias"
     android:id="@+id/view_boton_categorias"
     android:layout_width="wrap_content"
-    android:layout_height="30dp"
+    android:layout_height="wrap_content"
     android:fontFamily="@font/montserrat_regular"
     android:textSize="16sp"
     android:textAllCaps="false"
+    android:padding="5dp"
     app:cornerRadius="6dp"/>

@@ -80,6 +80,10 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         loadRecyclerProductos()
         loadRecyclerPedidoComensal()
         setOnClickListeners()
+        setObserverModeloBuscador()
+    }
+
+    private fun setObserverModeloBuscador() {
         model.palabraCapturada.observe(viewLifecycleOwner, Observer<String>{
             buscador.setText(it)
             val params : ViewGroup.LayoutParams = buscador.layoutParams
@@ -87,13 +91,14 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 params.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 recyclerCategorias.visibility = View.GONE
+                buscador.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search , 0, R.drawable.clear_icon, 0)
             } else {
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 recyclerCategorias.visibility = View.VISIBLE
+                buscador.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search, 0, 0, 0)
             }
             buscador.layoutParams = params
-
         })
     }
 
@@ -173,6 +178,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
 
     @SuppressLint("ClickableViewAccessibility")
     private fun loadBuscador() {
+        buscador.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search, 0, 0, 0)
         buscador.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus){
                 activity?.supportFragmentManager?.beginTransaction()?.add(R.id.frame_contenedor_captura_pedido, BuscadorProductos.newInstance(buscador.text.toString()))?.setReorderingAllowed(false)?.addToBackStack("BUSCADOR_PRODUCTOS")?.commit()
@@ -180,17 +186,15 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
             }
         })
         buscador.setOnTouchListener { v, event ->
-            val DRAWABLE_LEFT = 0
-            val DRAWABLE_TOP = 1
             val DRAWABLE_RIGHT = 2
-            val DRAWABLE_BOTTOM = 3
-
-            if (event!!.action == MotionEvent.ACTION_UP) {
-                if (event.getRawX() >= (buscador.getRight() - buscador.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                    Toast.makeText(activity,"Hola", Toast.LENGTH_LONG).show()
+            if (event!!.action == MotionEvent.ACTION_DOWN) {
+                if (buscador.getCompoundDrawables()[DRAWABLE_RIGHT] != null){
+                    if (event.getRawX() >= (buscador.getRight() - buscador.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        model.capturarPalabra("")
+                        buscador.clearFocus()
+                    }
                 }
             }
-
             false
         }
     }

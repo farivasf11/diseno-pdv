@@ -22,7 +22,7 @@ class CategoriasAdapter(private val dataset: Array<String>) : RecyclerView.Adapt
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriasAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_boton_categorias, parent, false)
         val holder = ViewHolder(view)
 
@@ -39,7 +39,7 @@ class CategoriasAdapter(private val dataset: Array<String>) : RecyclerView.Adapt
         return holder
     }
 
-    override fun onBindViewHolder(holder: CategoriasAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.button.text = dataset[position]
         holder.button.isSelected = seleccionActual == position
     }
