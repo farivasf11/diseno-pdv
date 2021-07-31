@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -15,13 +14,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -37,7 +33,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.google.android.material.button.MaterialButton
 
 class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnClickListener {
-    val model: CapturaPedido.BuscadorProductosViewModel by activityViewModels<CapturaPedido.BuscadorProductosViewModel>()
+
+    val viewModelBuscador: CapturaPedido.BuscadorProductosViewModel by activityViewModels()
+    val viewModelCategorias: CapturaPedido.CategoriasViewModel by activityViewModels()
 
     lateinit var buscador : EditText
     lateinit var listaProductos: LinearLayout
@@ -57,10 +55,12 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     lateinit var agregarComentario : MaterialButton
     lateinit var switchIncluirImpuestos : SwitchCompat
 
-    lateinit var productos : Array<Producto>
+    lateinit var actividad: CapturaPedido
+    lateinit var productosListar: List<Producto>
+    lateinit var productosTodos: List<Producto>
+    lateinit var categorias: Array<String>
     var comensal = PedidoComensal("")
     var comensales = 1
-    var incluirImpuestos = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,21 +81,38 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         loadRecyclerPedidoComensal()
         setOnClickListeners()
         setObserverModeloBuscador()
+        setObserverModeloCategorias()
+    }
+
+    private fun setObserverModeloCategorias() {
+        viewModelCategorias.actualizarSeleccionCategoria(categorias[0])
+        viewModelCategorias.categoriaSeleccionada.observe(viewLifecycleOwner, {
+            val nombreCategoria = it
+            productosListar = productosTodos.filter { it.categoria == nombreCategoria}
+            val adapterProductos = ProductosAdapter(productosListar, actividad.LISTA_PRECIOS)
+            recyclerProductos.adapter = adapterProductos
+        })
     }
 
     private fun setObserverModeloBuscador() {
-        model.palabraCapturada.observe(viewLifecycleOwner, Observer<String>{
+        viewModelBuscador.palabraCapturada.observe(viewLifecycleOwner, Observer<String>{
             buscador.setText(it)
             val params : ViewGroup.LayoutParams = buscador.layoutParams
             if (!it.isEmpty()){
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 params.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 recyclerCategorias.visibility = View.GONE
+                if (!buscador.text.toString().isEmpty()){
+                    productosListar = productosTodos.filter { it.nombre.contains(buscador.text.toString(), true) }
+                    val adapterProductos = ProductosAdapter(productosListar, actividad.LISTA_PRECIOS)
+                    recyclerProductos.adapter = adapterProductos
+                }
                 buscador.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search , 0, R.drawable.clear_icon, 0)
             } else {
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 recyclerCategorias.visibility = View.VISIBLE
+                viewModelCategorias.actualizarSeleccionCategoria(categorias[0])
                 buscador.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search, 0, 0, 0)
             }
             buscador.layoutParams = params
@@ -119,6 +136,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         agregarProducto = view.findViewById(R.id.boton_agregar_producto)
         agregarComentario = view.findViewById(R.id.boton_comentario_producto)
         switchIncluirImpuestos = view.findViewById(R.id.switch_incluir_impuestos)
+        actividad = activity as CapturaPedido
     }
 
     private fun setOnClickListeners(){
@@ -139,7 +157,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
             val adapter = recyclerProductos.adapter as ProductosAdapter
             val seleccionProducto = adapter?.seleccionActual
             if (seleccionProducto != -1){
-                val productoAgregar = productos[seleccionProducto]
+                val productoAgregar = productosListar[seleccionProducto]
                 val indexProductoPedido = comensal.productos.indexOfFirst { it.producto.nombre == productoAgregar.nombre}
                 when(comensal.agregarProducto(indexProductoPedido, productoAgregar)){
                     1 -> recyclerPedido.adapter?.notifyItemInserted(comensal.productos.size)
@@ -153,9 +171,8 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
 
         switchIncluirImpuestos.setOnCheckedChangeListener { buttonView, isChecked ->
             vibratePhone()
-            incluirImpuestos = isChecked
-            productos.forEach {
-                it.incluirImpuestos = incluirImpuestos
+            productosTodos.forEach {
+                it.incluirImpuestos = isChecked
             }
             recyclerProductos.adapter?.notifyDataSetChanged()
             recyclerPedido.adapter?.notifyDataSetChanged()
@@ -190,7 +207,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
             if (event!!.action == MotionEvent.ACTION_DOWN) {
                 if (buscador.getCompoundDrawables()[DRAWABLE_RIGHT] != null){
                     if (event.getRawX() >= (buscador.getRight() - buscador.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        model.capturarPalabra("")
+                        viewModelBuscador.capturarPalabra("")
                         buscador.clearFocus()
                     }
                 }
@@ -230,31 +247,16 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
 
     private fun loadRecyclerCategorias(){
         recyclerCategorias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        val dataset = arrayOf("Favoritos","Hamburguesa", "Tortas", "Pizzas", "Burritos", "Desayunos")
-        val adapterCategorias = CategoriasAdapter(dataset)
+        categorias = arrayOf("Favoritos","Hamburguesas", "Tortas", "Pizzas", "Bebidas", "Burritos", "Desayunos")
+        val adapterCategorias = CategoriasAdapter(categorias, viewModelCategorias)
         (recyclerCategorias.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         recyclerCategorias.adapter = adapterCategorias
-
     }
 
     private fun loadRecyclerProductos(){
+        productosTodos = actividad.productosTodos
         recyclerProductos.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        productos = arrayOf(
-            Producto("Papa", 50F),
-            Producto("Hamburguesa",60.5F),
-            Producto("Torta de Pierna",40F),
-            Producto("Enchiladas",45F),
-            Producto("Torta Cubana",33F),
-            Producto("Limonada Grande",60F),
-            Producto("Pizza Mediana",80F),
-            Producto("Tacos de Adobada",43F),
-            Producto("Tampiqueña",82F),
-            Producto("Coca Cola",10F),
-            Producto("Hot Dog",50F))
-        val adapterProductos = ProductosAdapter(productos)
-
         (recyclerProductos.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        recyclerProductos.adapter = adapterProductos
     }
 
     companion object {
@@ -266,7 +268,6 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     }
 
     override fun onClick(v: View?) {
-        Log.i("View", v.toString())
         if (v == draggableZone){
             val adapterPedido = PedidoAdapter(comensal.productos, false)
             recyclerPedido.adapter = adapterPedido

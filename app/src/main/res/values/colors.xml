@@ -16,4 +16,5 @@
     <color name="gris_claro">#F9F9F9</color>
     <color name="gris_separador">#ADADAD</color>
     <color name="rojo_main">#DD4141</color>
+    <color name="gris_desvanecido">#1ABBBBBB</color>
 </resources>

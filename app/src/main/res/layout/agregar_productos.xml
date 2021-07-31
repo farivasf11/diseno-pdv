@@ -23,7 +23,7 @@
             android:gravity="center">
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:background="@color/borde_inputs"/>
             <View
                 android:layout_width="35dp"
@@ -103,7 +103,7 @@
                     app:cornerRadius="6dp"
                     android:textSize="16sp"
                     android:text="Comentario"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/montserrat_regular"
                     android:textAllCaps="false"
                     android:enabled="true"
                     android:layout_marginRight="10dp"/>
@@ -116,7 +116,7 @@
                     app:cornerRadius="6dp"
                     android:textSize="16sp"
                     android:text="Agregar"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/montserrat_regular"
                     android:enabled="true"
                     android:textAllCaps="false"/>
             </LinearLayout>

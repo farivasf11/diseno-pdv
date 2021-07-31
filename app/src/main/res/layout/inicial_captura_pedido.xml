@@ -79,7 +79,6 @@
             android:layout_height="wrap_content"
             android:thumb="@drawable/switch_thumb"
             app:track="@drawable/switch_track"/>
-
     </LinearLayout>
     <include layout="@layout/detalle_pedido_comensal"/>
     <include layout="@layout/agregar_productos"/>

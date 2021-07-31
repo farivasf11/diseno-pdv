@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/drawable/producto_state_selector.xml" value="0.22870370370370371" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/font/fuente_principal.xml" value="0.28" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/activity_captura_pedido.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/agregar_productos.xml" value="0.264" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/fragment_buscador_productos.xml" value="0.18611111111111112" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/inicial_captura_pedido.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_listado_productos_agregar.xml" value="0.18611111111111112" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_listado_productos_busqueda.xml" value="0.30833333333333335" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

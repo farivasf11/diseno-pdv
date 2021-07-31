@@ -1,15 +1,17 @@
 package com.example.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
 import com.example.models.Producto
 
-class ProductosAdapter (private val dataset: Array<Producto>) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>(){
+class ProductosAdapter (private val productos: List<Producto>, private val tipoLista: Int) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>(){
     var seleccionAnterior = -1
     var seleccionActual = -1
 
@@ -25,29 +27,42 @@ class ProductosAdapter (private val dataset: Array<Producto>) : RecyclerView.Ada
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_listado_productos_agregar,parent, false)
+        var itemLista: Int = when(tipoLista){
+            1 ->  R.layout.item_listado_productos_agregar
+            2 ->  R.layout.item_listado_productos_busqueda
+            else -> R.layout.item_listado_productos_agregar
+        }
+
+        val view = LayoutInflater.from(parent.context).inflate(itemLista, parent, false)
         val holder = ViewHolder(view)
         holder.itemView.setOnClickListener {
-            seleccionActual = holder.adapterPosition
-            if (seleccionAnterior == -1){
-                seleccionAnterior = seleccionActual
-            } else {
-                notifyItemChanged(seleccionAnterior)
-                seleccionAnterior = seleccionActual
+            if (tipoLista == 1){
+                seleccionActual = holder.adapterPosition
+                if (seleccionAnterior == -1){
+                    seleccionAnterior = seleccionActual
+                } else {
+                    notifyItemChanged(seleccionAnterior)
+                    seleccionAnterior = seleccionActual
+                }
+                notifyItemChanged(seleccionActual)
             }
-            notifyItemChanged(seleccionActual)
+            if (tipoLista ==2){
+                holder.itemView.isFocusable = true
+            }
         }
         return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nombre.text = dataset[position].nombre
-        holder.precio.text = "$"+dataset[position].precio.toString()
-        holder.layout.isSelected = seleccionActual == position
+        holder.apply {
+            nombre.text = productos.get(position).nombre
+            precio.text = "$"+productos.get(position).precio.toString()
+            layout.isSelected = seleccionActual == position
+        }
     }
 
     override fun getItemCount(): Int {
-        return dataset.size
+        return productos.size
     }
 
 

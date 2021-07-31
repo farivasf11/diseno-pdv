@@ -2,7 +2,6 @@ package com.example.models
 
 class PedidoComensal (nombre : String){
     var nombreComensal = nombre
-        set(value) {"Comensal "+ value}
 
     val productos : ArrayList<ElementoPedido> = arrayListOf()
 

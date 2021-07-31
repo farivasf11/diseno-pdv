@@ -5,7 +5,8 @@
     android:padding="15dp"
     android:background="@color/white"
     android:clickable="true"
-    tools:context="com.example.diseno_pruebas.fragments.BuscadorProductos">
+    tools:context="com.example.diseno_pruebas.fragments.BuscadorProductos"
+    android:orientation="vertical">
     <EditText
         android:id="@+id/buscador_productos"
         android:layout_width="match_parent"
@@ -21,4 +22,10 @@
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_listado_productos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:paddingVertical="10dp"/>
 </LinearLayout>

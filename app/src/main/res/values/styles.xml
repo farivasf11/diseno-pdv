@@ -9,7 +9,7 @@
         <item name="elevation">10dp</item>
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:textColor">@color/text_principal</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="MaterialButtonIcon" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
@@ -39,7 +39,7 @@
     <style name="MaterialButtonPrincipal" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
         <item name="backgroundTint">@color/material_button_background_color</item>
         <item name="iconTint">@color/material_button_background_color</item>
-        <item name="android:textColor">@color/blue_main</item>
+        <item name="android:textColor">@color/gris_fuerte</item>
         <item name="strokeColor">@color/blue_main</item>
         <item name="android:minHeight">40dp</item>
         <item name="android:insetTop">0dp</item>

@@ -17,22 +17,27 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.example.adapters.ProductosAdapter
 import com.example.diseno_prueba.R
 import com.example.diseno_prueba.activities.CapturaPedido
+import com.example.models.Producto
 
 class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
+    private val model: CapturaPedido.BuscadorProductosViewModel by activityViewModels<CapturaPedido.BuscadorProductosViewModel>()
 
     lateinit var buscador: EditText
+    lateinit var recyclerProductos: RecyclerView
     lateinit var actividad: CapturaPedido
-    lateinit var busqueda: String
-    private val model: CapturaPedido.BuscadorProductosViewModel by activityViewModels<CapturaPedido.BuscadorProductosViewModel>()
+    lateinit var productosTodos: List<Producto>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        busqueda = savedInstanceState?.getString("BUSQUEDA").toString()
         return inflater.inflate(R.layout.fragment_buscador_productos, container, false)
     }
 
@@ -41,6 +46,10 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
         actividad = activity as CapturaPedido
         actividad.botonRealizarPedido.visibility = View.GONE
         actividad.toolbar.title = "Buscar productos"
+
+        recyclerProductos = view.findViewById(R.id.recycler_listado_productos)
+        loadRecyclerProductos()
+
         buscador = view.findViewById(R.id.buscador_productos)
         buscador.apply {
             showKeyboard()
@@ -55,10 +64,43 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
                     return false;
                 }
             })
+
+            addTextChangedListener(object: TextWatcher{
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (!buscador.text.toString().isEmpty()){
+                        val resultadoBusqueda = productosTodos.filter { it.nombre.contains(buscador.text.toString(), true) }
+                        val adapterProductos = ProductosAdapter(resultadoBusqueda, actividad.LISTA_BUSQUEDA)
+                        recyclerProductos.adapter = adapterProductos
+                    } else {
+                        recyclerProductos.adapter = null
+                    }
+                }
+            })
         }
+
         model.palabraCapturada.observe(viewLifecycleOwner, Observer<String> {
             buscador.setText(it)
         })
+    }
+
+
+    private fun loadRecyclerProductos(){
+        productosTodos = actividad.productosTodos
+        recyclerProductos.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        (recyclerProductos.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
     private fun View.showKeyboard(){
