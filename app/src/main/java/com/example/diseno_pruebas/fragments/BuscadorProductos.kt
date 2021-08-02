@@ -82,7 +82,7 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
                 override fun afterTextChanged(s: Editable?) {
                     if (!buscador.text.toString().isEmpty()){
                         val resultadoBusqueda = productosTodos.filter { it.nombre.contains(buscador.text.toString(), true) }
-                        val adapterProductos = ProductosAdapter(resultadoBusqueda, actividad.LISTA_BUSQUEDA)
+                        val adapterProductos = ProductosAdapter(resultadoBusqueda, actividad.LISTA_BUSQUEDA, recyclerProductos)
                         recyclerProductos.adapter = adapterProductos
                     } else {
                         recyclerProductos.adapter = null
@@ -123,7 +123,7 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
     override fun onBackPressed(): Boolean {
         actividad.toolbar.title = "Tomar pedido"
         actividad.botonRealizarPedido.visibility = View.VISIBLE
-        buscador?.hideKeyboard()
+        buscador.hideKeyboard()
         return true
     }
 

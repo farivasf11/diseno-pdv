@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
 import com.example.models.Producto
 
-class ProductosAdapter (private val productos: List<Producto>, private val tipoLista: Int) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>(){
+class ProductosAdapter (private val productos: List<Producto>, private val tipoLista: Int, private val recycler: RecyclerView) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>(){
     var seleccionAnterior = -1
     var seleccionActual = -1
 
@@ -45,6 +45,7 @@ class ProductosAdapter (private val productos: List<Producto>, private val tipoL
                     seleccionAnterior = seleccionActual
                 }
                 notifyItemChanged(seleccionActual)
+                recycler.scrollToPosition(holder.adapterPosition)
             }
             if (tipoLista ==2){
                 holder.itemView.isFocusable = true

@@ -8,7 +8,7 @@ import com.example.diseno_prueba.R
 import com.example.diseno_prueba.activities.CapturaPedido
 import com.google.android.material.button.MaterialButton
 
-class CategoriasAdapter(private val dataset: Array<String>, private val viewModelCategorias: CapturaPedido.CategoriasViewModel) : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){
+class CategoriasAdapter(private val categorias: Array<String>, private val viewModelCategorias: CapturaPedido.CategoriasViewModel, private val recycler: RecyclerView) : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){
     var seleccionAnterior = -1
     var seleccionActual = -1
 
@@ -22,9 +22,8 @@ class CategoriasAdapter(private val dataset: Array<String>, private val viewMode
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_boton_categorias, parent, false)
         val holder = ViewHolder(view)
-
         holder.itemView.setOnClickListener {
-            viewModelCategorias.actualizarSeleccionCategoria(dataset[holder.adapterPosition])
+            viewModelCategorias.actualizarSeleccionCategoria(categorias[holder.adapterPosition])
             seleccionActual = holder.adapterPosition
             if (seleccionAnterior == -1){
                 seleccionAnterior = seleccionActual
@@ -33,13 +32,14 @@ class CategoriasAdapter(private val dataset: Array<String>, private val viewMode
                 seleccionAnterior = seleccionActual
             }
             notifyItemChanged(seleccionActual)
+            recycler.scrollToPosition(holder.adapterPosition)
         }
         return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.apply {
-            button.text = dataset[position]
+            button.text = categorias[position]
             button.isSelected = seleccionActual == position
             if (seleccionActual == -1 && seleccionAnterior == -1 && position == 0){
                 button.isSelected = true
@@ -49,7 +49,7 @@ class CategoriasAdapter(private val dataset: Array<String>, private val viewMode
     }
 
     override fun getItemCount(): Int {
-        return dataset.size
+        return categorias.size
 
     }
 }

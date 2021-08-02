@@ -6,6 +6,7 @@ class PedidoComensal (nombre : String){
     val productos : ArrayList<ElementoPedido> = arrayListOf()
 
     fun agregarProducto(indexProductoPedido : Int, producto: Producto) : Int{
+
         if (indexProductoPedido == -1){
             this.productos.add(ElementoPedido(producto))
             return 1
@@ -14,4 +15,5 @@ class PedidoComensal (nombre : String){
             return 2
         }
     }
+
 }

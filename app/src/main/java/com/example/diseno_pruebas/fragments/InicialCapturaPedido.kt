@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -15,6 +16,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -32,7 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.button.MaterialButton
 
-class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnClickListener {
+class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, View.OnClickListener, View.OnTouchListener {
 
     val viewModelBuscador: CapturaPedido.BuscadorProductosViewModel by activityViewModels()
     val viewModelCategorias: CapturaPedido.CategoriasViewModel by activityViewModels()
@@ -47,6 +49,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     lateinit var recyclerPedido : RecyclerView
     lateinit var draggableZone : LinearLayout
     lateinit var layoutPedido : LinearLayout
+    lateinit var cardPedido : CardView
 
     lateinit var disminuirComensal : MaterialButton
     lateinit var aumentarComensal : MaterialButton
@@ -54,6 +57,9 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     lateinit var agregarProducto : MaterialButton
     lateinit var agregarComentario : MaterialButton
     lateinit var switchIncluirImpuestos : SwitchCompat
+
+    lateinit var productosPedido: TextView
+    lateinit var importePedido: TextView
 
     lateinit var actividad: CapturaPedido
     lateinit var productosListar: List<Producto>
@@ -89,7 +95,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         viewModelCategorias.categoriaSeleccionada.observe(viewLifecycleOwner, {
             val nombreCategoria = it
             productosListar = productosTodos.filter { it.categoria == nombreCategoria}
-            val adapterProductos = ProductosAdapter(productosListar, actividad.LISTA_PRECIOS)
+            val adapterProductos = ProductosAdapter(productosListar, actividad.LISTA_PRECIOS, recyclerProductos)
             recyclerProductos.adapter = adapterProductos
         })
     }
@@ -104,7 +110,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
                 recyclerCategorias.visibility = View.GONE
                 if (!buscador.text.toString().isEmpty()){
                     productosListar = productosTodos.filter { it.nombre.contains(buscador.text.toString(), true) }
-                    val adapterProductos = ProductosAdapter(productosListar, actividad.LISTA_PRECIOS)
+                    val adapterProductos = ProductosAdapter(productosListar, actividad.LISTA_PRECIOS, recyclerProductos)
                     recyclerProductos.adapter = adapterProductos
                 }
                 buscador.setCompoundDrawablesWithIntrinsicBounds(R.drawable.search , 0, R.drawable.clear_icon, 0)
@@ -129,6 +135,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         coordinatorLayout = view.findViewById(R.id.coordinator_layout_agregar_productos)
         draggableZone = view.findViewById(R.id.draggable_zone)
         layoutPedido = view.findViewById(R.id.layout_pedido_comensal)
+        cardPedido = view.findViewById(R.id.card_pedido)
 
         disminuirComensal = view.findViewById(R.id.disminuirComensal)
         aumentarComensal = view.findViewById(R.id.aumentarComensal)
@@ -136,6 +143,8 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         agregarProducto = view.findViewById(R.id.boton_agregar_producto)
         agregarComentario = view.findViewById(R.id.boton_comentario_producto)
         switchIncluirImpuestos = view.findViewById(R.id.switch_incluir_impuestos)
+        productosPedido = view.findViewById(R.id.productos_pedido)
+        importePedido = view.findViewById(R.id.importe_pedido)
         actividad = activity as CapturaPedido
     }
 
@@ -179,9 +188,9 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
         }
 
         draggableZone.setOnClickListener(this)
-        layoutPedido.setOnClickListener(this)
-        recyclerPedido.setOnClickListener(this)
 
+        recyclerPedido.setOnTouchListener(this)
+        cardPedido.setOnTouchListener(this)
     }
 
     fun Fragment.vibratePhone() {
@@ -248,7 +257,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
     private fun loadRecyclerCategorias(){
         recyclerCategorias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         categorias = arrayOf("Favoritos","Hamburguesas", "Tortas", "Pizzas", "Bebidas", "Burritos", "Desayunos")
-        val adapterCategorias = CategoriasAdapter(categorias, viewModelCategorias)
+        val adapterCategorias = CategoriasAdapter(categorias, viewModelCategorias, recyclerCategorias)
         (recyclerCategorias.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         recyclerCategorias.adapter = adapterCategorias
     }
@@ -279,20 +288,20 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed, 
 
             bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
         }
-        if (v == layoutPedido || v == recyclerPedido){
-            val adapterPedido = PedidoAdapter(comensal.productos, true)
-            recyclerPedido.adapter = adapterPedido
-
-            layoutPedido.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
     }
 
-
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        if (v == recyclerPedido && comensal.productos.size > 0) {
+            val adapterPedido = PedidoAdapter(comensal.productos, true)
+            recyclerPedido.adapter = adapterPedido
+            layoutPedido.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            return true
+        }
+        return false
+    }
 
     override fun onBackPressed(): Boolean {
         return true
     }
-
 }

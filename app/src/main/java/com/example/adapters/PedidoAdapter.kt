@@ -1,7 +1,5 @@
 package com.example.adapters
 
-import android.opengl.Visibility
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
 import com.example.models.ElementoPedido
 
-class PedidoAdapter (private val dataset: ArrayList<ElementoPedido>, private val expandido: Boolean) : RecyclerView.Adapter<PedidoAdapter.ViewHolder>(){
+class PedidoAdapter (private val productosPedido: ArrayList<ElementoPedido>, private val expandido: Boolean) : RecyclerView.Adapter<PedidoAdapter.ViewHolder>(){
     var seleccionAnterior = -1
     var seleccionActual = -1
-
-    val elementos : ArrayList<ElementoPedido> = dataset
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val cantidad : TextView
         val nombre : TextView
@@ -36,12 +31,14 @@ class PedidoAdapter (private val dataset: ArrayList<ElementoPedido>, private val
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view : View
-        if (viewType == 1){
-            view = LayoutInflater.from(parent.context).inflate(R.layout.item_producto_pedido, parent, false)
-        } else {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.item_producto_pedido_expanded, parent, false)
+        var itemLista: Int = when(viewType){
+            1 ->  R.layout.item_producto_pedido
+            2 ->  R.layout.item_producto_pedido_expanded
+            else -> R.layout.item_producto_pedido
         }
+
+        val view = LayoutInflater.from(parent.context).inflate(itemLista, parent, false)
+
 
         val holder = ViewHolder(view)
         if (viewType == 2){
@@ -60,9 +57,9 @@ class PedidoAdapter (private val dataset: ArrayList<ElementoPedido>, private val
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.cantidad.text = dataset.get(position).cantidad.toString()
-        holder.nombre.text = dataset.get(position).producto.nombre
-        holder.precio.text = "$"+dataset.get(position).importe.toString()
+        holder.cantidad.text = productosPedido.get(position).cantidad.toString()
+        holder.nombre.text = productosPedido.get(position).producto.nombre
+        holder.precio.text = "$"+productosPedido.get(position).importe.toString()
         holder.layoutProducto.isSelected = seleccionActual == position
         holder.layoutOpciones.visibility = if (seleccionActual == position) View.VISIBLE else View.GONE
         if (position + 1 == itemCount) holder.separador.visibility = View.GONE
@@ -77,6 +74,6 @@ class PedidoAdapter (private val dataset: ArrayList<ElementoPedido>, private val
     }
 
     override fun getItemCount(): Int {
-        return dataset.size
+        return productosPedido.size
     }
 }
