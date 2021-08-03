@@ -3,15 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/drawable/nombre_comensal.xml" value="0.2703125" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/drawable/producto_state_selector.xml" value="0.22870370370370371" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/drawable/search_input.xml" value="0.2703125" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/drawable/switch_thumb.xml" value="0.26296296296296295" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/drawable/switch_track.xml" value="0.26296296296296295" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/font/fuente_principal.xml" value="0.28" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/activity_captura_pedido.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/agregar_productos.xml" value="0.264" />
-        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/detalle_pedido_comensal.xml" value="0.4" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/detalle_pedido_comensal.xml" value="0.264" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/fragment_buscador_productos.xml" value="0.18611111111111112" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/inicial_captura_pedido.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_boton_categorias.xml" value="0.15104166666666666" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_listado_productos_agregar.xml" value="0.18611111111111112" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_listado_productos_busqueda.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_pedido_comensal.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_producto_pedido.xml" value="0.15104166666666666" />
         <entry key="..\:/Users/fariv/AndroidStudioProjects/diseno-pdv/app/src/main/res/layout/item_producto_pedido_expanded.xml" value="0.103125" />
       </map>
     </option>

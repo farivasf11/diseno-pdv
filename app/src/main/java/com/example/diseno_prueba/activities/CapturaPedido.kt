@@ -23,6 +23,7 @@ class CapturaPedido : AppCompatActivity(){
         setContentView(R.layout.activity_captura_pedido)
         toolbar = findViewById(R.id.toolbar_captura_pedido)
         toolbar.title = "Tomar pedido"
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         botonRealizarPedido = findViewById(R.id.boton_realizar_pedido)
@@ -57,9 +58,10 @@ class CapturaPedido : AppCompatActivity(){
             Producto("Enchiladas",45F, "Tortas"),
             Producto("Torta Cubana",33F, "Tortas"),
             Producto("Limonada Grande",60F, "Pizzas"),
-            Producto("Pizza Mediana",80F, "Burritos"),
-            Producto("Tacos de Adobada",43F, "Burritos"),
-            Producto("Tampiqueña",82F, "Burritos"),
+            Producto("Burrito de adobada",80F, "Burritos"),
+            Producto("Burrito de asada",43F, "Burritos"),
+            Producto("Burito de desebrada",82F, "Burritos"),
+            Producto("Tacos de asada",82F, "Burritos"),
             Producto("Coca Cola 500ml",10F, "Bebidas"),
             Producto("Limonada mineral chica",10F, "Bebidas"),
             Producto("Agua natural 1L",10F, "Bebidas"),
@@ -68,7 +70,7 @@ class CapturaPedido : AppCompatActivity(){
             Producto("Jarra de Horchata",50F,"Hamburguesas"),
             Producto("Hamburguesa de pollo",57F,"Hamburguesas"),
             Producto("Hamburguesa doble carne",70F,"Hamburguesas"),
-            Producto("Hamburguesa sencilla",55F,"Hamburguesas"),
+            Producto("Hamburguesa Con Papas",55F,"Hamburguesas"),
             Producto("Hamburguesa especial",36F,"Hamburguesas"))
     }
 

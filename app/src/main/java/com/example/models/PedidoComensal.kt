@@ -1,6 +1,7 @@
 package com.example.models
 
 class PedidoComensal (nombre : String){
+
     var nombreComensal = nombre
 
     val productos : ArrayList<ElementoPedido> = arrayListOf()

@@ -10,11 +10,13 @@
     
     <color name="blue_main">#00AFB9</color>
     <color name="blue_light">#A5FFD6</color>
+    <color name="blue_regular">#BBEEFF</color>
     <color name="text_principal">#7A7A7A</color>
     <color name="borde_inputs">#BBBBBB</color>
     <color name="gris_fuerte">#696969</color>
     <color name="gris_claro">#F9F9F9</color>
     <color name="gris_separador">#ADADAD</color>
     <color name="rojo_main">#DD4141</color>
+
     <color name="gris_desvanecido">#1ABBBBBB</color>
 </resources>

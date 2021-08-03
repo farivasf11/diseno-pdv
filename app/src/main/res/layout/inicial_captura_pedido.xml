@@ -9,9 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:clickable="true"
-        android:focusableInTouchMode="true" >
+        android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:thumb="@drawable/switch_thumb"
+            app:thumbTextPadding="5dp"
             app:track="@drawable/switch_track"/>
     </LinearLayout>
     <include layout="@layout/detalle_pedido_comensal"/>

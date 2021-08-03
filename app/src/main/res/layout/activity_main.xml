@@ -27,23 +27,24 @@
         android:orientation="horizontal"
         android:layout_margin="15dp">
         <androidx.cardview.widget.CardView
+            app:cardCornerRadius="10dp"
             android:layout_width="0dp"
             android:layout_height="119dp"
             android:layout_weight="1"
-            app:cardCornerRadius="10dp"
+            android:backgroundTint="@color/blue_regular"
             android:layout_marginRight="15dp">
             <LinearLayout
                 android:id="@+id/mesa_uno"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:gravity="center_vertical"
-                android:background="#bbeeff">
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_regular"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gris_fuerte"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:text="Mesa 1"/>
@@ -55,6 +56,7 @@
             android:layout_weight="1"
             app:cardCornerRadius="10dp">
             <LinearLayout
+                android:id="@+id/mesa_dos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
