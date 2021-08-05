@@ -106,9 +106,9 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
 
             override fun onPageSelected(position: Int) {
                 nombreComensal.setText(pedidosComensales.get(position).nombreComensal)
-                if (bottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED){
-                    viewPagerPedidos.adapter?.notifyItemChanged(position)
-                }
+//                if (bottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED){
+//                    viewPagerPedidos.adapter?.notifyItemChanged(position)
+//                }
             }
         })
     }
@@ -221,6 +221,10 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
             }
         }
         agregarComentario.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.add(
+                R.id.frame_contenedor_captura_pedido,
+                MasOpcionesAgregar()
+            )?.setReorderingAllowed(false)?.addToBackStack("MAS_OPCIONES")?.commit()
             vibratePhone()
         }
 
@@ -245,7 +249,6 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
         val mDetector = GestureDetector(actividad, object :
             GestureDetector.SimpleOnGestureListener() {
             override fun onDoubleTap(e: MotionEvent?): Boolean {
-                Log.i("TAP","Double")
                 Toast.makeText(actividad, "Doble Tap ${pedidosComensales.size}", Toast.LENGTH_SHORT).show()
                 return true
             }

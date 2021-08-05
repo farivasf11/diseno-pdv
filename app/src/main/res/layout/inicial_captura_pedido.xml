@@ -48,7 +48,6 @@
             android:gravity="center"
             android:fontFamily="@font/montserrat_regular"
             android:layout_marginHorizontal="5dp"/>
-
         <com.google.android.material.button.MaterialButton
             style="@style/MaterialButtonIcon"
             android:id="@+id/aumentarComensal"
