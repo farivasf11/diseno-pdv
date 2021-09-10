@@ -14,30 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-
         android:theme="@style/ToolbarTheme"/>
     <FrameLayout
         android:id="@+id/frame_contenedor_captura_pedido"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_captura_pedido"
-        android:layout_above="@id/boton_realizar_pedido">
+        android:layout_above="@id/contenedor_boton">
     </FrameLayout>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/boton_realizar_pedido"
-        android:layout_alignParentBottom="true"
+    <FrameLayout
+        android:id="@+id/contenedor_boton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Revisar pedido"
-        android:fontFamily="@font/montserrat_bold"
-        android:textSize="18sp"
-        android:backgroundTint="@color/blue_main"
-        android:textAllCaps="false"
-        android:stateListAnimator="@null"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
-        android:insetBottom="0dp"
-        android:insetLeft="0dp"
-        android:layout_margin="15dp"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/gris_desvanecido"
+        android:padding="15dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/boton_realizar_pedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Revisar pedido"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="18sp"
+            android:backgroundTint="@color/blue_main"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"/>
+    </FrameLayout>
+
 </RelativeLayout>
 

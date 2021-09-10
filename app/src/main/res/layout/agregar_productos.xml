@@ -5,122 +5,124 @@
     android:id="@+id/coordinator_layout_agregar_productos"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/sheet"
+        style="@style/CustomCardStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/white"
         android:orientation="vertical"
-        android:gravity="center"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:behavior_peekHeight="58dp">
         <LinearLayout
-            android:id="@+id/draggable_zone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp"
-            android:gravity="center">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/borde_inputs"/>
-            <View
-                android:layout_width="35dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/text_principal"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:text="Agregar Productos"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lista_productos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1"
-            android:layout_marginHorizontal="15dp">
+            android:visibility="visible">
             <LinearLayout
+                android:id="@+id/draggable_zone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:weightSum="1">
-                <EditText
-                    android:id="@+id/buscador_productos"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
+                <View
+                    android:layout_width="35dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/text_principal"/>
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:hint="Buscar"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/black"
+                    android:gravity="center"
                     android:textSize="16sp"
-                    android:background="@drawable/search_input"
-                    android:maxLines="1"
-                    android:maxLength="50"
-                    android:paddingVertical="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="10dp"
-                    android:longClickable="false"
-                    android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_categorias"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="10dp"
-                    android:overScrollMode="never"/>
+                    android:layout_marginTop="10dp"
+                    android:text="Agregar Productos"/>
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_listado_productos"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:overScrollMode="never"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical"
-                android:paddingVertical="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
             <LinearLayout
+                android:id="@+id/lista_productos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:weightSum="2">
-                <com.google.android.material.button.MaterialButton
-                    style="@style/MaterialButtonPrincipal"
-                    android:id="@+id/boton_comentario_producto"
-                    android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_marginHorizontal="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="1">
+                    <EditText
+                        android:id="@+id/buscador_productos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:hint="Buscar"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textSize="16sp"
+                        android:background="@drawable/search_input"
+                        android:maxLines="1"
+                        android:maxLength="50"
+                        android:paddingVertical="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="10dp"
+                        android:longClickable="false"
+                        android:digits="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 "/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_categorias"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:overScrollMode="never"/>
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_listado_productos"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    app:cornerRadius="6dp"
-                    android:textSize="16sp"
-                    android:text="Comentario"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textAllCaps="false"
-                    android:enabled="true"
-                    android:layout_marginRight="10dp"/>
-                <com.google.android.material.button.MaterialButton
-                    style="@style/MaterialButtonPrincipal"
-                    android:id="@+id/boton_agregar_producto"
-                    android:layout_width="0dp"
+                    android:overScrollMode="never"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cornerRadius="6dp"
-                    android:textSize="16sp"
-                    android:text="Agregar"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:enabled="true"
-                    android:textAllCaps="false"/>
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:weightSum="2">
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/MaterialButtonPrincipal"
+                        android:id="@+id/boton_comentario_producto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cornerRadius="6dp"
+                        android:textSize="16sp"
+                        android:text="Comentario"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textAllCaps="false"
+                        android:enabled="true"
+                        android:layout_marginRight="10dp"/>
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/MaterialButtonPrincipal"
+                        android:id="@+id/boton_agregar_producto"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cornerRadius="6dp"
+                        android:textSize="16sp"
+                        android:text="Agregar"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:enabled="true"
+                        android:textAllCaps="false"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
+    </com.google.android.material.card.MaterialCardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

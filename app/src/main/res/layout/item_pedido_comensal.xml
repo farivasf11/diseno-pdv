@@ -6,13 +6,14 @@
     android:elevation="5dp"
     android:clickable="true"
     android:focusableInTouchMode="true"
+    android:backgroundTint="@color/white"
     android:layout_margin="5dp">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_pedido"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
-        android:background="@color/gris_claro"
+        android:background="@color/white"
         android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.cardview.widget.CardView>

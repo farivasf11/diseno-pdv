@@ -44,7 +44,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
 
     lateinit var buscador: EditText
     lateinit var listaProductos: LinearLayout
-    lateinit var layoutSheet: LinearLayout
+    lateinit var layoutSheet: CardView
     lateinit var bottomSheet: (BottomSheetBehavior<View>)
     lateinit var coordinatorLayout: CoordinatorLayout
     lateinit var recyclerCategorias: RecyclerView
