@@ -1,4 +1,4 @@
-package com.example.diseno_prueba
+package com.alexis
 
 import org.junit.Test
 

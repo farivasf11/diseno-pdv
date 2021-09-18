@@ -1,4 +1,4 @@
-package com.example.adapters
+package com.alexis.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
-import com.example.models.Producto
+import com.alexis.models.Producto
 
 class ProductosAdapter (private val productos: List<Producto>, private val tipoLista: Int, private val recycler: RecyclerView) : RecyclerView.Adapter<ProductosAdapter.ViewHolder>(){
     var seleccionAnterior = -1

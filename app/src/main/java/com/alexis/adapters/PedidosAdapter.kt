@@ -1,4 +1,4 @@
-package com.example.adapters
+package com.alexis.adapters
 
 import android.util.Log
 import android.view.*
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
-import com.example.models.PedidoComensal
+import com.alexis.models.PedidoComensal
 
 class PedidosAdapter(private val actividad: AppCompatActivity, private val comensales: List<PedidoComensal>, private val expandido: Boolean): RecyclerView.Adapter<PedidosAdapter.ViewPagerViewHolder>(){
     inner class ViewPagerViewHolder(view: View): RecyclerView.ViewHolder(view){

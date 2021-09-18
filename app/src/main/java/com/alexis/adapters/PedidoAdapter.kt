@@ -1,4 +1,4 @@
-package com.example.adapters
+package com.alexis.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
-import com.example.models.ElementoPedido
+import com.alexis.models.ElementoPedido
 
 class PedidoAdapter (private val productosPedido: ArrayList<ElementoPedido>, private val expandido: Boolean) : RecyclerView.Adapter<PedidoAdapter.ViewHolder>(){
     var seleccionAnterior = -1

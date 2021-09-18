@@ -1,15 +1,12 @@
-package com.example.diseno_pruebas.fragments
+package com.alexis.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.gesture.Gesture
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,23 +14,20 @@ import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.example.adapters.CategoriasAdapter
-import com.example.adapters.PedidoAdapter
-import com.example.adapters.PedidosAdapter
-import com.example.adapters.ProductosAdapter
+import com.alexis.activities.CapturaPedido
+import com.alexis.adapters.CategoriasAdapter
+import com.alexis.adapters.PedidosAdapter
+import com.alexis.adapters.ProductosAdapter
+import com.alexis.models.PedidoComensal
+import com.alexis.models.Producto
 import com.example.diseno_prueba.R
-import com.example.diseno_prueba.activities.CapturaPedido
-import com.example.models.PedidoComensal
-import com.example.models.Producto
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.button.MaterialButton
 
 class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
@@ -193,7 +187,11 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
                     pedidosComensales.removeAt(indexComensal)
                     viewPagerPedidos.adapter?.notifyItemRemoved(pedidosComensales.size)
                 } else {
-                    Toast.makeText(actividad, "Hay productos agregados para el comensal ${pedidosComensales.size}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        actividad,
+                        "Hay productos agregados para el comensal ${pedidosComensales.size}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -249,7 +247,8 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
         val mDetector = GestureDetector(actividad, object :
             GestureDetector.SimpleOnGestureListener() {
             override fun onDoubleTap(e: MotionEvent?): Boolean {
-                Toast.makeText(actividad, "Doble Tap ${pedidosComensales.size}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(actividad, "Doble Tap ${pedidosComensales.size}", Toast.LENGTH_SHORT)
+                    .show()
                 return true
             }
         })
@@ -302,7 +301,7 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
             state = BottomSheetBehavior.STATE_EXPANDED
             isGestureInsetBottomIgnored = false
             isDraggable = true
-            addBottomSheetCallback(object : BottomSheetCallback() {
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     val currentItem = viewPagerPedidos.currentItem
                     if (newState == BottomSheetBehavior.STATE_COLLAPSED && pedidosComensales.get(currentItem).productos.size > 0) {
@@ -337,16 +336,19 @@ class InicialCapturaPedido : Fragment(), CapturaPedido.IFragmentsOnBackPressed,
     }
 
     private fun loadRecyclerCategorias() {
-        recyclerCategorias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        recyclerCategorias.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         categorias = arrayOf("Favoritos","Hamburguesas","Tortas","Pizzas","Bebidas","Burritos","Desayunos")
-        val adapterCategorias = CategoriasAdapter(categorias, viewModelCategorias, recyclerCategorias)
+        val adapterCategorias =
+            CategoriasAdapter(categorias, viewModelCategorias, recyclerCategorias)
         (recyclerCategorias.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         recyclerCategorias.adapter = adapterCategorias
     }
 
     private fun loadRecyclerProductos() {
         productosTodos = actividad.productosTodos
-        recyclerProductos.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        recyclerProductos.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         (recyclerProductos.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.diseno_pruebas.fragments.MasOpcionesAgregar"
+    tools:context="com.alexis.fragments.MasOpcionesAgregar"
     android:orientation="vertical"
     android:weightSum="1"
     android:background="@color/white"

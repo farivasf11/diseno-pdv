@@ -1,12 +1,10 @@
-package com.example.diseno_pruebas.fragments
+package com.alexis.fragments
 
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,18 +12,18 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.example.adapters.ProductosAdapter
+import com.alexis.activities.CapturaPedido
+import com.alexis.adapters.ProductosAdapter
+import com.alexis.models.Producto
 import com.example.diseno_prueba.R
-import com.example.diseno_prueba.activities.CapturaPedido
-import com.example.models.Producto
 
-class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
+class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
     private val model: CapturaPedido.BuscadorProductosViewModel by activityViewModels<CapturaPedido.BuscadorProductosViewModel>()
 
     lateinit var buscador: EditText
@@ -65,7 +63,7 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
                 }
             })
 
-            addTextChangedListener(object: TextWatcher{
+            addTextChangedListener(object: TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -82,7 +80,11 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
                 override fun afterTextChanged(s: Editable?) {
                     if (!buscador.text.toString().isEmpty()){
                         val resultadoBusqueda = productosTodos.filter { it.nombre.contains(buscador.text.toString(), true) }
-                        val adapterProductos = ProductosAdapter(resultadoBusqueda, actividad.LISTA_BUSQUEDA, recyclerProductos)
+                        val adapterProductos = ProductosAdapter(
+                            resultadoBusqueda,
+                            actividad.LISTA_BUSQUEDA,
+                            recyclerProductos
+                        )
                         recyclerProductos.adapter = adapterProductos
                     } else {
                         recyclerProductos.adapter = null
@@ -99,7 +101,8 @@ class BuscadorProductos : Fragment(), CapturaPedido.IFragmentsOnBackPressed{
 
     private fun loadRecyclerProductos(){
         productosTodos = actividad.productosTodos
-        recyclerProductos.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        recyclerProductos.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         (recyclerProductos.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 

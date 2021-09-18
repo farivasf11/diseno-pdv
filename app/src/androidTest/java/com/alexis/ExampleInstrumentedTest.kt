@@ -1,4 +1,4 @@
-package com.example.diseno_prueba
+package com.alexis
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

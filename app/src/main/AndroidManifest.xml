@@ -7,16 +7,15 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:label="Punto de venta"
+        android:label="@string/app_name"
         android:theme="@style/Theme.Disenoprueba">
         <activity
-            android:name=".activities.CapturaPedido"
+            android:name="com.alexis.activities.CapturaPedido"
             android:label="">
-
         </activity>
         <activity
-            android:name=".activities.MainActivity"
-            android:label="">
+            android:name="com.alexis.activities.MainActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

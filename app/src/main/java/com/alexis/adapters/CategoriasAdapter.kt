@@ -1,11 +1,11 @@
-package com.example.adapters
+package com.alexis.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diseno_prueba.R
-import com.example.diseno_prueba.activities.CapturaPedido
+import com.alexis.activities.CapturaPedido
 import com.google.android.material.button.MaterialButton
 
 class CategoriasAdapter(private val categorias: Array<String>, private val viewModelCategorias: CapturaPedido.CategoriasViewModel, private val recycler: RecyclerView) : RecyclerView.Adapter<CategoriasAdapter.ViewHolder>(){

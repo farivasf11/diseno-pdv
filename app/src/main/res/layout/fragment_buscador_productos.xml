@@ -5,7 +5,7 @@
     android:padding="15dp"
     android:background="@color/white"
     android:clickable="true"
-    tools:context="com.example.diseno_pruebas.fragments.BuscadorProductos"
+    tools:context="com.alexis.fragments.BuscadorProductos"
     android:orientation="vertical">
     <EditText
         android:id="@+id/buscador_productos"

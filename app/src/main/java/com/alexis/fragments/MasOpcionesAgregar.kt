@@ -1,12 +1,12 @@
-package com.example.diseno_pruebas.fragments
+package com.alexis.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.alexis.activities.CapturaPedido
 import com.example.diseno_prueba.R
-import com.example.diseno_prueba.activities.CapturaPedido
 
 class MasOpcionesAgregar : Fragment(), CapturaPedido.IFragmentsOnBackPressed {
     lateinit var actividad: CapturaPedido

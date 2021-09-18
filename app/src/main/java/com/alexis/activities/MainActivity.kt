@@ -1,27 +1,28 @@
-package com.example.diseno_prueba.activities
+package com.alexis.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import android.view.View
 import android.widget.LinearLayout
-import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.app.AppCompatActivity
 import com.example.diseno_prueba.R
+import com.example.diseno_prueba.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var mesaUno : LinearLayout
+    lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar_principal))
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        actionBar?.title = ""
+        setSupportActionBar(binding.toolbarPrincipal)
 
         mesaUno = findViewById(R.id.mesa_uno)
         mesaUno.setOnClickListener(
             View.OnClickListener {
-                startActivity(Intent(this, CapturaPedido::class.java ))
+                startActivity(Intent(this, CapturaPedido::class.java))
             }
         )
     }
 }
-

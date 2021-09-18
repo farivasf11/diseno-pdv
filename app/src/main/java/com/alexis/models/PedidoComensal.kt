@@ -1,4 +1,4 @@
-package com.example.models
+package com.alexis.models
 
 class PedidoComensal (nombre : String){
 

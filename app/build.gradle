@@ -5,10 +5,10 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion '30.0.2'
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
-        applicationId "com.example.diseno_prueba"
+        applicationId 'com.alexis.pdv'
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -22,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
